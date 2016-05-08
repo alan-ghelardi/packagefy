@@ -12,6 +12,7 @@ const path = require('path');
 const _ = require('lodash');
 const defaultOptions = require('./default-options');
 const exclude = require('./exclude');
+const withoutExtension = require('./helpers').withoutExtension;
 
 const FUNC_ERR_MSG = 'The option `%s` must be a function';
 
@@ -50,9 +51,4 @@ const mustBeAFunction = (candidate, optionName) => {
     const message = format(FUNC_ERR_MSG, optionName);
     throw new TypeError(message);
   }
-};
-
-const withoutExtension = (fileName) => {
-const length = fileName.length;
-return fileName.substring(0, length - 3);
 };

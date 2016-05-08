@@ -43,7 +43,6 @@ describe('helpers', () => {
       expect(isNegativeOrEven(-3)) .to .be .equal(true);
       expect(isNegativeOrEven(-6)) .to .be .equal(true);
     });
-  });
   
   it('also accepts an array of predicates as parameter', () => {
     const isNegative = (x) => x < 0;
@@ -55,6 +54,28 @@ describe('helpers', () => {
     expect(isNegativeOrEven(-3)) .to .be .equal(true);
     expect(isNegativeOrEven(-6)) .to .be .equal(true);
   });
+  
+});
 
+  describe('.withoutExtension(fileName', () => {
+    
+    it('returns the file name without its extension', () => {
+    const someFile = helpers.withoutExtension('some-file.js');
+    expect(someFile) .to .be .equal('some-file');
+    });
+    
+  });
+  
+  describe('.haveSameName(someFile, another)', () => {
+  
+    it('returns true', () => {
+      expect( helpers.haveSameName('some-file.js', 'some-file') ) .to .be .equal(true);
+    });
+    
+    it('returns false', () => {
+      expect( helpers.haveSameName('some-file.js', 'another-file') ) .to .be .equal(false);
+    });
+    
+  });
   
 });

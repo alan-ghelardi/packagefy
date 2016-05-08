@@ -17,12 +17,32 @@ describe('packagefy', () => {
   
   describe('when called without options', () => {
     
-    it('packages all modules present at directory', () => {
+    it('packages all modules from the directory except the index.js', () => {
       const fixtures = packagefy(baseDir); 
       
     expect(fixtures) .to .have .all .keys('anotherPrivateModule', 'helloWorld', 'helpers', 'privateModule', 'someClass');
     });
     
+  });
+
+  describe('when the option `exclude` is passed', () => {
+      
+      it('accepts a regular expression for excluding modules', () => {
+      const fixtures = packagefy(baseDir, {
+        exclude: /(private)|(helpers)/
+      });
+      
+      expect(fixtures) .to .have .all .keys('helloWorld', 'someClass');
+    });
+    
+      it('accepts a string for excluding modules', () => {
+        const fixtures = packagefy(baseDir, {
+          exclude: 'private-module' 
+        });
+
+        expect(fixtures) .to .have .all .keys('anotherPrivateModule', 'helloWorld', 'helpers', 'someClass');
+      });
+      
   });
   
 });

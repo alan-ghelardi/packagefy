@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const helpers = require('./helpers');
 
-const or = helpers.disjunction;
+const or = helpers.disjunction, haveSameName = helpers.haveSameName;
 
 /**
  * 
@@ -31,9 +31,9 @@ const toPredicate = (arg) => {
   var func;
   
   if (_.isString(arg)) {
-  func = _.partial(_.eq, arg);  
+    func = _.partial(haveSameName, arg);
   } else if (_.isRegExp(arg)) {
-    func = (file) => arg.test(file); 
+    func = (fileName) => arg.test(fileName); 
   } else if (_.isFunction(arg)) {
     func = arg;
   } else {

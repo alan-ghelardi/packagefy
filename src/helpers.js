@@ -4,6 +4,8 @@ const helpers = module.exports;
 
 const every = Array.prototype.every, some = Array.prototype.some, isArray = Array.isArray, slice = Array.prototype.slice;
 
+const FILE_EXT = /\.\w+$/;
+
 /**
  * Composes a list of predicate functions making a conjunction between them.
  * 
@@ -35,3 +37,11 @@ const splat = (params) => {
 helpers.disjunction = function() { 
   return sequence(some, arguments);
 };
+
+helpers.withoutExtension = (fileName) => {
+  const parts = fileName.split(FILE_EXT);
+  return parts[0];
+  };
+
+  helpers.haveSameName = (someFile, another) => this.withoutExtension(someFile) === this.withoutExtension(another);
+  
