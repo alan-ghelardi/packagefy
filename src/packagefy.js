@@ -1,9 +1,3 @@
-/*!
- * packagefy
- * Copyright(c) 2016 Alan Ghelardi
- * MIT Licensed
- */
-
 'use strict';
 
 const format = require('util').format;
@@ -43,7 +37,7 @@ const createGroup = (baseDir, files, options) => {
         group[options.transform(fileName)] = module;
    });
   
-  return group;
+  return Object.freeze(group);
 };
 
 const mustBeAFunction = (candidate, optionName) => {
