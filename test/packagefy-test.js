@@ -39,10 +39,38 @@ describe('packagefy', () => {
         const fixtures = packagefy(baseDir, {
           exclude: 'private-module' 
         });
-
+        
         expect(fixtures) .to .have .all .keys('anotherPrivateModule', 'helloWorld', 'helpers', 'someClass');
       });
       
+        it('accepts a function for excluding modules', () => {
+          const fixtures = packagefy(baseDir, {
+            exclude: (fileName) => fileName.indexOf('private') >= 0
+          });
+
+        expect(fixtures) .to .have .all .keys('helloWorld', 'helpers', 'someClass');
+      });
+
+        it('also accepts an array with previous types', () => {
+          const fixtures = packagefy(baseDir, {
+            exclude: [
+                      'some-class',
+                      /^help/,
+                       (fileName) => fileName.indexOf('private') >= 0]
+          });
+
+        expect(fixtures) .to .have .all .keys('helloWorld');
+      });
+
+        it('does not accept any other parameter type', () => {
+          expect( () => {
+            packagefy(baseDir, {
+              exclude: 12
+            });
+          })
+          .to .throw(TypeError, 'The exclude option expects a `String`, a `RegExp`, a `Function` or an array of them');
+        });
+        
   });
   
 });

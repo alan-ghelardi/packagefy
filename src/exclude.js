@@ -37,7 +37,7 @@ const toPredicate = (arg) => {
   } else if (_.isFunction(arg)) {
     func = arg;
   } else {
-    throw new TypeError('The exclude option expects a `String`, a `RegExp`, a `Function` or a collection of them');
+    throw new TypeError('The exclude option expects a `String`, a `RegExp`, a `Function` or an array of them');
   }
   
   return func;
