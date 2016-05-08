@@ -11,7 +11,7 @@ Packagefy makes easier the process of grouping related modules from a given dire
 * ++ index.js
 * ++ module-a.js
 * ++ module-b.js
-** ++ private-module.js
+* ++ private-module.js
 
 After requiring the packagefy module within index.js and calling the packagefy exposed function, the library will scan the folder, load all modules (except the index itself) and expose them as properties of an immutable plain JavaScript object. Additionally, you may exclude "private" modules from the created package. For example:
 ```javascript
