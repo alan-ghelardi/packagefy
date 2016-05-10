@@ -8,27 +8,24 @@
   },
   "files": [
     "license",
-      "index.js",
-      "readme.md",
-      "src/"
-    ],
-      "engines": {
+    "index.js",
+    "readme.md",
+    "src/"
+  ],
+  "engines": {
     "node": ">= 4.0.0"
   },
-    "dependencies": {
+  "dependencies": {
     "lodash": "^4.11.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-mocha-test": "^0.12.7",
-    "load-grunt-tasks": "^3.5.0",
+    "jshint": "^2.9.2",
     "mocha": "^2.4.5"
   },
   "scripts": {
-    "test": "grunt"
+    "lint": "jshint src/ test/",
+      "test": "mocha --reporter spec test"
   },
   "repository": {
     "type": "git",
