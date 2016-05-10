@@ -25,8 +25,11 @@
   },
   "scripts": {
     "lint": "jshint src/ test/",
-      "test": "mocha --reporter spec test"
-  },
+      "test": "mocha --reporter spec test",
+      "validate": "npm run lint&&npm test",
+      "prepublish": "npm run validate",
+      "preversion": "npm run validate"
+  },    
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alan-ghelardi/packagefy.git"
