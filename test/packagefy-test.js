@@ -1,6 +1,7 @@
+const _ = require('lodash');
 const expect = require('chai').expect;
 const path = require('path');
-const packagefy = require('../src/packagefy');
+  const packagefy = require('../src/packagefy');
 
 const baseDir = path.join(__dirname, 'fixtures'); 
 
@@ -71,6 +72,70 @@ describe('packagefy', () => {
           .to .throw(TypeError, 'The exclude option expects a `String`, a `RegExp`, a `Function` or an array of them');
         });
         
+  });
+
+  describe('when the option `onLoad` is passed', () => {
+    
+    it('throws an error if the value is not a function', () => {
+    expect(() => {
+      packagefy(baseDir, {
+        onLoad: 'not valid'
+      });
+    })
+      .to .throw(TypeError, 'The option `onLoad` must be a function');
+        
+    });
+    
+    it('calls the function after each module being loaded', () => {
+      var times = 0;
+      
+      packagefy(baseDir, {
+exclude: /private/,
+onLoad: () => times++
+      });
+      
+      expect(times) .to .be .equal(3);
+    });
+
+    it('passes the module name and the module itself to the function', () => {
+      const moduleNames = [];
+      
+      packagefy(baseDir, {
+exclude: /private/,
+onLoad (moduleName, module) {
+  expect(module) .to .exist; // jshint ignore:line
+  moduleNames.push(moduleName);
+}
+      });
+      
+      expect(moduleNames) .to .contain('hello-world');
+      expect(moduleNames) .to .contain('helpers');
+      expect(moduleNames) .to .contain('some-class');
+    });
+    
+  });
+
+  describe('when the option `transform` is passed', () => {
+    
+    it('throws an error if the value is not a function', () => {
+    expect(() => {
+      packagefy(baseDir, {
+        transform: 'not valid'
+      });
+    })
+      .to .throw(TypeError, 'The option `transform` must be a function');
+        
+    });
+
+    it('allow customizing the module names transformation', () => {
+      const fixtures = packagefy(baseDir, {
+        exclude: [/private/, 'helpers'],
+        transform: _.snakeCase
+        });
+        
+      expect(fixtures) .to .have .all .keys('hello_world', 'some_class');
+    });
+    
   });
   
 });

@@ -20,24 +20,24 @@ module.exports = (baseDir, options) => {
 var files = fs.readdirSync(baseDir, options.encoding);
 files = exclude(files, options.exclude);
 
-return createGroup(baseDir, files, options);
+return createPackage(baseDir, files, options);
 };
 
-const createGroup = (baseDir, files, options) => {
+const createPackage = (baseDir, files, options) => {
   mustBeAFunction(options.onLoad, 'onLoad');
   mustBeAFunction(options.transform, 'transform');
   
-  const group = {};
+  const packageObj = {};
   
   files.forEach((fileName) => {
-    fileName = withoutExtension(fileName);
-    const fullPath = path.join(baseDir, fileName);  
+    const moduleName = withoutExtension(fileName);
+    const fullPath = path.join(baseDir, moduleName);  
     const module = require(fullPath);
-    options.onLoad(module);
-        group[options.transform(fileName)] = module;
+    options.onLoad(moduleName, module);
+        packageObj[options.transform(moduleName)] = module;
    });
   
-  return Object.freeze(group);
+  return Object.freeze(packageObj);
 };
 
 const mustBeAFunction = (candidate, optionName) => {
