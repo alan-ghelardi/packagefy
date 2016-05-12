@@ -1,6 +1,6 @@
 {
   "name": "packagefy",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "A NodeJS library for grouping modules from a given directory into package objects",
   "main": "index.js",
   "directories": {
@@ -25,10 +25,10 @@
   },
   "scripts": {
     "lint": "jshint src/ test/",
-      "test": "mocha --reporter spec test",
-      "validate": "npm run lint&&npm test",
-            "preversion": "npm run validate"
-  },    
+    "test": "mocha --reporter spec test",
+    "validate": "npm run lint&&npm test",
+    "preversion": "npm run validate"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alan-ghelardi/packagefy.git"
