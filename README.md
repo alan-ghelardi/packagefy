@@ -44,8 +44,8 @@ npm install packagefy
 
 Scan the directory, load modules and expose them into an immutable (frozen) object.
 
-- **baseDir** (String) directory where the modules should be loaded from (required). Generally __dirname.
-- **options* (Object) non-mandatory set of options accepted by **packagefy** (see bellow).
+- **baseDir** (String) directory where the modules should be loaded from (required). Generally `__dirname`.
+- **options** (Object) non-mandatory set of options accepted by **packagefy** (see bellow).
 - **return value** (Object) an immutable (frozen) hash containing the modules to be exposed.
 
 #### options
@@ -56,30 +56,38 @@ A `RegExp`, `String` or `Function` used for determining which files should be ex
 If defined as a `String`, perform an equality comparison between the value and the names of the files present at the directory. If defined as a `Function`, receive the file name (without the extension) as its first parameter. In that case, this function should acts as a predicate returning a `Boolean` equivalent value indicating whether the file should be excluded.
 
 ```javascript
+// Defining a RegExp
+
 module.exports = packagefy(__dirname, {
   exclude: /private/
 });
 ```
 
 ```javascript
+// Defining a simple String
+
 module.exports = packagefy(__dirname, {
   exclude: 'private-module'
 });
 ```
 
 ```javascript
+// Using a predicate Function
+
 module.exports = packagefy(__dirname, {
   exclude: (fileName) -> fileName.indexOf('private') >= 0
 });
 ```
 
 ```javascript
+// Finally, defining an array
+
 module.exports = packagefy(__dirname, {
   exclude: [/private/, 'foo']
 });
 ```
 
-**Note** the index.js and non-JavaScript files are always excluded from the package object. 
+**Note:** the `index.js` and non-JavaScript files (obviously) are always excluded from the package object. 
 
 ##### onLoad (Function)
 
@@ -96,7 +104,7 @@ module.exports = packagefy(__dirname, {
 
 ##### transform (Function)
 
-A `function` invoked for transforming the module name into a key of the package object. By default, the module name is converted to a camel case representation. Receive the module name and return the key as a `string`.
+A `function` invoked for transforming the module name into a key of the package object. By default, the module name is converted to a camel case representation. Receive the module name and return the key as a string.
 
 ```javascript
 module.exports = packagefy(__dirname, {
